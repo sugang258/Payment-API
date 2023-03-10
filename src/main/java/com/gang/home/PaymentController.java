@@ -8,15 +8,14 @@ public class PaymentController {
 	
 	@GetMapping("/kakaoPay")
 	public String kakaoPay() {
-		System.out.println("hihihi");
 		return "kakaoPay";
 	}
 	
-	@GetMapping("/kakao")
-	public String kakao() {
-		System.out.println("helloodododododo");
-
-		return "/payment/kakao";
+	
+	@GetMapping("/danal")
+	public String Danal() {
+		return "Danal";
 	}
+	
 
 }
