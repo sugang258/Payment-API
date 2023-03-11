@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PaymentController {
 	
+	
 	@GetMapping("/kakaoPay")
 	public String kakaoPay() {
 		return "kakaoPay";
