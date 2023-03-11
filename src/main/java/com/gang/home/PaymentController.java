@@ -14,7 +14,7 @@ public class PaymentController {
 	
 	@GetMapping("/danal")
 	public String Danal() {
-		return "Danal";
+		return "danal";
 	}
 	
 
