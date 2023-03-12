@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class PaymentController {
 	
 	
-	@GetMapping("/kakaoPay")
-	public String kakaoPay() {
-		return "kakaoPay";
-	}
+//	@GetMapping("/kakaoPay")
+//	public String kakaoPay() {
+//		return "kakaoPay";
+//	}
 	
 	
 	@GetMapping("/danal")

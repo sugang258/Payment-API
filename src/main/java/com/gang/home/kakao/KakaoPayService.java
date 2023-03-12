@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -28,9 +29,11 @@ public class KakaoPayService {
 	@Value("${kakaopay.admin}")
 	private String admin_key;
 	
-	public String kakaoPayReady() {
+	public KakaoPayReadyVO kakaoPayReady() {
+		log.info("ready!!!!");
 		
 		RestTemplate restTemplate = new RestTemplate();
+		//restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Autorization","KakaoAK "+ admin_key );
@@ -52,20 +55,23 @@ public class KakaoPayService {
 		
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 		
+		log.info("body:  "+ body);
+		
 		try {
-			kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
+			kakaoPayReadyVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/ready", body, KakaoPayReadyVO.class);
 			
 			log.info(""+ kakaoPayReadyVO);
+			log.info("dd ::    " + kakaoPayReadyVO);
 			
-			return kakaoPayReadyVO.getNext_redirect_pc_url();
+			return kakaoPayReadyVO;
 		
 		} catch (RestClientException e) {
 			e.printStackTrace();
-		}catch(URISyntaxException e) {
-			e.printStackTrace();
 		}
-
-		return "/pay";
+		
+		//kakaoPayReadyVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/ready", body, KakaoPayReadyVO.class);
+				
+		return kakaoPayReadyVO;
 	}
 	
 	public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
@@ -73,6 +79,8 @@ public class KakaoPayService {
 		log.info("-----------------------");
 		
 		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "KakaoAK " + admin_key);
@@ -90,16 +98,20 @@ public class KakaoPayService {
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         
         try {
-        	kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
-        	log.info("" +kakaoPayApprovalVO);
-        	
-        	return kakaoPayApprovalVO;
-        }catch(RestClientException e) {
-        	e.printStackTrace();
-        }catch(URISyntaxException e) {
-        	e.printStackTrace();
-        }
+			kakaoPayReadyVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/ready", body, KakaoPayReadyVO.class);
+			
+			log.info(""+ kakaoPayReadyVO);
+			
+			return kakaoPayApprovalVO;
 		
-		return null;
+		} catch (RestClientException e) {
+			e.printStackTrace();
+		}
+        
+        
+        //kakaoPayApprovalVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/approve", body, KakaoPayApprovalVO.class);
+        	
+		
+		return kakaoPayApprovalVO;
 	}
 }
