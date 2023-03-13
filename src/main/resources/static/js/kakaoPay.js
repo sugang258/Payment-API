@@ -7,7 +7,7 @@ pay.addEventListener("click",function() {
     IMP.request_pay({
         pg : 'kakaopay',
         pay_method : 'card',
-        merchant_uid: 'Danal_'+new Date().getTime(), 
+        merchant_uid: 'Kakao_'+new Date().getTime(), 
         name : '당근 10kg',
         amount : 100,
         buyer_email : 'Iamport@chai.finance',
@@ -28,7 +28,7 @@ $("#kakaoPay").click(function(){
     IMP.request_pay({
         pg : 'kakaopay',
         pay_method : 'card',
-        merchant_uid: 'Danal_'+new Date().getTime(), 
+        merchant_uid: 'Kakao_'+new Date().getTime(), 
         name : '당근 10kg',
         amount : 100,
         buyer_email : 'Iamport@chai.finance',
@@ -38,9 +38,15 @@ $("#kakaoPay").click(function(){
         buyer_postcode : '123-456'
     }, function (rsp) { // callback
         if (rsp.success) {
-            console.log(rsp);
+            var msg = '결제가 완료되었습니다';
+            msg+= '결제금액 : ' + rsp.paid_amount;
+            // console.log(rsp);
+            // $('#kakaoForm').submit();
         } else {
-            console.log(rsp);
+            var msg = '결제에 실패하였습니다';
+            msg += '에러내용 : ' + rsp.error_msg;
+            // console.log(rsp);
         }
+        alert(msg);
     });
 })

@@ -12,7 +12,7 @@
 </head>
 <body>
     <button id="card_pay">원포트-카카오페이 결제하기</button>
-    <form method="post" action="/kakaoPay">
+    <form method="post" action="/kakaoPay" id="kakaoForm">
         <button id="kakaoPay">카카오페이 결제하기</button>
     </form>
 
