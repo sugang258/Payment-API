@@ -50,9 +50,9 @@ public class KakaoPayService {
 		params.add("quantity", "1");
 		params.add("total_amount", "2100");
 		params.add("tax_free_amount", "100");
-		params.add("approval_url", "http://localhost:81/kakaoPaySuccess");
-		params.add("cancel_url", "http://localhost:81/kakaoPayCancel");
-		params.add("fail_url", "http://localhost:81/kakaoPaySuccessFail");
+		params.add("approval_url", "http://localhost:81/kakao/kakaoPaySuccess");
+		params.add("cancel_url", "http://localhost:81/kakao/kakaoPayCancel");
+		params.add("fail_url", "http://localhost:81/kakao/kakaoPaySuccessFail");
 		
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 		
@@ -77,44 +77,44 @@ public class KakaoPayService {
 		return "/kakaoPay";
 	}
 	
-//	public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
-//		log.info("kakaopayinfo  ");
-//		log.info("-----------------------");
-//		
-//		RestTemplate restTemplate = new RestTemplate();
-//		restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-//
-//		
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.add("Authorization", "KakaoAK " + admin_key);
-//		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
-//		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE+";charset=UTF-8");
-//		
-//		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-//		params.add("cid", "TC0ONETIME");
-//        params.add("tid", kakaoPayReadyVO.getTid());
-//        params.add("partner_order_id", "1001");
-//        params.add("partner_user_id", "gorany");
-//        params.add("pg_token", pg_token);
-//        params.add("total_amount", "2100");
-//        
-//        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
-//        
-//        try {
-//			kakaoPayReadyVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/ready", body, KakaoPayReadyVO.class);
-//			
-//			log.info(""+ kakaoPayReadyVO);
-//			
-//			return kakaoPayApprovalVO;
-//		
-//		} catch (RestClientException e) {
-//			e.printStackTrace();
-//		}
-//        
-//        
-//        //kakaoPayApprovalVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/approve", body, KakaoPayApprovalVO.class);
-//        	
-//		
-//		return kakaoPayApprovalVO;
-//	}
+	public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
+		log.info("kakaopayinfo  ");
+		log.info("-----------------------");
+		
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK " + admin_key);
+		//headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
+		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE+";charset=UTF-8");
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("cid", "TC0ONETIME");
+        params.add("tid", kakaoPayReadyVO.getTid());
+        params.add("partner_order_id", "1001");
+        params.add("partner_user_id", "gorany");
+        params.add("pg_token", pg_token);
+        params.add("total_amount", "2100");
+        
+        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+        
+        try {
+			kakaoPayReadyVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/ready", body, KakaoPayReadyVO.class);
+			
+			log.info(""+ kakaoPayReadyVO);
+			
+			return kakaoPayApprovalVO;
+		
+		} catch (RestClientException e) {
+			e.printStackTrace();
+		}
+        
+        
+        //kakaoPayApprovalVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/approve", body, KakaoPayApprovalVO.class);
+        	
+		
+		return kakaoPayApprovalVO;
+	}
 }
