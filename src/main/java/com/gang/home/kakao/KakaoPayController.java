@@ -1,21 +1,14 @@
 package com.gang.home.kakao;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.java.Log;
 
 @Log
@@ -49,9 +42,8 @@ public class KakaoPayController {
     }
     
     @PostMapping("/kakao/kakaoPayCancel")
-    public void kakaoPayCancel(Model model, HttpServletRequest request,HttpSession session) {
+    public void kakaoPayCancel(Model model,HttpSession session) {
     	log.info("kakaoPayCancel----------------");
-//    	KakaoPayApprovalVO kakaoPayApprovalVO = (KakaoPayApprovalVO)request.getAttribute("payInfo");
     	KakaoPayApprovalVO kakaoPayApprovalVO = (KakaoPayApprovalVO) session.getAttribute("payInfo");
     	
     	log.info("infoddddd :   "+kakaoPayApprovalVO);

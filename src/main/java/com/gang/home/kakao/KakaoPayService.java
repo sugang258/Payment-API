@@ -1,10 +1,5 @@
 package com.gang.home.kakao;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import javax.print.attribute.standard.Media;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -39,7 +34,6 @@ public class KakaoPayService {
 		//header
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization","KakaoAK "+ admin_key);
-		//headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE+";charset=UTF-8");
 		
 		//body
@@ -69,12 +63,8 @@ public class KakaoPayService {
 			e.printStackTrace();
 		}
 			
-		
 		log.info("dd ::    " + kakaoPayReadyVO);
-		
-		
-		//kakaoPayReadyVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/ready", body, KakaoPayReadyVO.class);
-				
+						
 		return "/kakaoPay";
 	}
 	
@@ -88,7 +78,6 @@ public class KakaoPayService {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "KakaoAK " + admin_key);
-		//headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE+";charset=UTF-8");
 		
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
