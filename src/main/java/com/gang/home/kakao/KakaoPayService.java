@@ -101,9 +101,9 @@ public class KakaoPayService {
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         
         try {
-			kakaoPayReadyVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/ready", body, KakaoPayReadyVO.class);
+			kakaoPayApprovalVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/approve", body, KakaoPayApprovalVO.class);
 			
-			log.info(""+ kakaoPayReadyVO);
+			log.info(""+ kakaoPayApprovalVO);
 			
 			return kakaoPayApprovalVO;
 		
@@ -115,6 +115,6 @@ public class KakaoPayService {
         //kakaoPayApprovalVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/approve", body, KakaoPayApprovalVO.class);
         	
 		
-		return kakaoPayApprovalVO;
+		return null;
 	}
 }
