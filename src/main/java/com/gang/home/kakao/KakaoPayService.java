@@ -25,6 +25,7 @@ public class KakaoPayService {
 	private static final String HOST = "https://kapi.kakao.com";
 	private KakaoPayReadyVO kakaoPayReadyVO;
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
+	private KakaoPayCancelVO kakaoPayCancelVO;
 	
 	@Value("${kakaopay.admin}")
 	private String admin_key;
@@ -110,11 +111,37 @@ public class KakaoPayService {
 		} catch (RestClientException e) {
 			e.printStackTrace();
 		}
-        
-        
-        //kakaoPayApprovalVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/approve", body, KakaoPayApprovalVO.class);
-        	
+		return null;
+	}
+	
+	public KakaoPayCancelVO kakaoPayCancel(KakaoPayApprovalVO kakaoPayApprovalVO) {
 		
+		log.info("cancel-------");
+		log.info("info:    "+kakaoPayApprovalVO);
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK "+admin_key);
+		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE+";charset=UTF-8");
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		
+		params.add("cid", kakaoPayApprovalVO.getCid());
+		params.add("tid", kakaoPayApprovalVO.getTid());
+		params.add("cancel_amount", kakaoPayApprovalVO.getAmount().getTotal().toString());
+		params.add("cancel_tax_free_amount","100");
+		
+		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+		
+		try {
+			kakaoPayCancelVO = restTemplate.postForObject("https://kapi.kakao.com/v1/payment/cancel", body, KakaoPayCancelVO.class);
+			
+			log.info(" cancel  :   "+kakaoPayCancelVO);
+			return kakaoPayCancelVO;
+		}catch(RestClientException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }
