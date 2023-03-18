@@ -8,7 +8,9 @@
     <script src="https://js.tosspayments.com/v1"></script>
 </head>
 <body>
-    <button id="tossPay">toss pay 결제하기</button>
+    <form method="post" action="/tossPay" id="tossForm">
+        <button id="tossPay">toss pay 결제하기</button>
+    </form>
 </body>
 <script type="text/javascript" src="/js/tossPay.js"></script>
 

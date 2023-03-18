@@ -17,6 +17,5 @@ button.addEventListener('click',function() {
         }else if(error.code === 'INVALID_CARD_COMPANY') {
             alert('유효하지 않은 카드');
         }
-    })
-    ;
+    });
 })
