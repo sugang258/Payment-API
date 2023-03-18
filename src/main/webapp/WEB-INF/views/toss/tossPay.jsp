@@ -5,8 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <script src="https://js.tosspayments.com/v1"></script>
 </head>
 <body>
-    <button>toss pay 결제하기</button>
+    <button id="tossPay">toss pay 결제하기</button>
 </body>
+<script type="text/javascript" src="/js/tossPay.js"></script>
+
 </html>

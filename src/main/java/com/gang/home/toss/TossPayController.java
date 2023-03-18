@@ -8,7 +8,7 @@ public class TossPayController {
 	
 	@GetMapping("tossPay")
 	public String tossPay() {
-		return "tossPay";
+		return "/toss/tossPay";
 	}
 
 }
